@@ -1,0 +1,1 @@
+Los pedidos se cargan en pedido/urls.txt (nombre<TAB>url). Al terminar, la rama se limpia.

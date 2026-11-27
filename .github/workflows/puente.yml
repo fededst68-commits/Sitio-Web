@@ -1,0 +1,34 @@
+name: Puente Instagram
+# Trae a esta rama los archivos listados en pedido/urls.txt (nombre<TAB>url).
+# Rama de trabajo del agente de Instagram: no forma parte del sitio web.
+on:
+  push:
+    branches: [puente-instagram]
+    paths: ['pedido/**']
+permissions:
+  contents: write
+jobs:
+  traer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bajar archivos
+        run: |
+          mkdir -p media
+          [ -f pedido/urls.txt ] || { echo 'sin pedido'; exit 0; }
+          ok=0; mal=0
+          while IFS=$'\t' read -r nombre url; do
+            [ -z "$nombre" ] && continue
+            if curl -sSL --fail --retry 3 --max-time 300 -o "media/$nombre" "$url"; then ok=$((ok+1)); else mal=$((mal+1)); rm -f "media/$nombre"; fi
+          done < pedido/urls.txt
+          echo "bajados=$ok fallidos=$mal" | tee media/RESULTADO.txt
+          date -u +%FT%TZ >> media/RESULTADO.txt
+          ls -la media >> media/RESULTADO.txt
+      - name: Guardar en la rama
+        run: |
+          git config user.name "puente-instagram"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add media
+          git commit -q -m "Archivos traídos por el puente [skip ci]" || echo "sin cambios"
+          git push -q
