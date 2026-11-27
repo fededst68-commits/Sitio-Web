@@ -1,0 +1,5 @@
+trabajo/
+reels/*/tmp/
+reels/*/out/
+*.asr.json
+__pycache__/
