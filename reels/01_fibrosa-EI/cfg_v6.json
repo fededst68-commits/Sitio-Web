@@ -1,0 +1,345 @@
+{
+ "out": "reel01_fibrosa-EI_v6.mp4",
+ "serie": "UN DATO POR SEMANA",
+ "tag_prod": "TRIPA FIBROSA E.I.",
+ "endcard_title": "TRIPA FIBROSA E.I.",
+ "endcard_sub": "Embutido Inmediato: se embute sin remojar.",
+ "whatsapp": "+54 221 642-2421",
+ "web": "destefanosrl.com",
+ "logo": "marca/logo-destefano.png",
+ "endcard_seconds": 3.0,
+ "lift_lead": 0.35,
+ "takes": {
+  "A": "trabajo/reel01/A.mp4",
+  "B": "trabajo/reel01/B.mp4",
+  "C": "trabajo/reel01/C_limpio.mp4",
+  "D": "trabajo/reel01/D.mp4"
+ },
+ "audio": [
+  [
+   "D",
+   0.4,
+   5.65
+  ],
+  [
+   "C",
+   0.1,
+   5.4
+  ],
+  [
+   "A",
+   10.95,
+   13.83
+  ],
+  [
+   "B",
+   0.2,
+   9.52
+  ],
+  [
+   "B",
+   12.13,
+   15.03
+  ]
+ ],
+ "video": [
+  {
+   "take": "D",
+   "at": [
+    "D",
+    0.4
+   ]
+  },
+  {
+   "take": "D",
+   "at": [
+    "D",
+    3.9
+   ],
+   "zoom": 1.42,
+   "zoom_from": 1.0,
+   "zoom_ramp": 0.33,
+   "zoom_y": 0.34
+  },
+  {
+   "take": "C",
+   "at": [
+    "C",
+    0.1
+   ]
+  },
+  {
+   "photo": "fotos/caja.jpg",
+   "at": [
+    "C",
+    5.32
+   ],
+   "tag": "prod"
+  },
+  {
+   "photo": "fotos/tubos-caja.jpg",
+   "at": [
+    "A",
+    11.62
+   ],
+   "tag": "prod"
+  },
+  {
+   "photo": "fotos/embutidora.jpg",
+   "at": [
+    "A",
+    12.38
+   ],
+   "tag": "prod"
+  },
+  {
+   "take": "B",
+   "at": [
+    "B",
+    0.2
+   ],
+   "zoom": 1.1
+  },
+  {
+   "photo": "fotos/batea.jpg",
+   "at": [
+    "B",
+    4.84
+   ]
+  },
+  {
+   "take": "B",
+   "at": [
+    "B",
+    5.9
+   ],
+   "zoom": 1.1
+  },
+  {
+   "take": "B",
+   "at": [
+    "B",
+    12.13
+   ],
+   "zoom": 1.28
+  }
+ ],
+ "endcard_at": [
+  "B",
+  15.0
+ ],
+ "music": {
+  "file": "musica/rock.mp3"
+ },
+ "captions": [
+  {
+   "take": "D",
+   "t0": 0.55,
+   "t1": 1.6,
+   "parts": [
+    [
+     "Che, hay que remojar",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "D",
+   "t0": 1.6,
+   "t1": 2.62,
+   "parts": [
+    [
+     "la tripa fibrosa…",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "D",
+   "t0": 3.3,
+   "t1": 3.92,
+   "parts": [
+    [
+     "Porque sí,",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "D",
+   "t0": 4.22,
+   "t1": 5.42,
+   "parts": [
+    [
+     "porque se hizo siempre.",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "C",
+   "t0": 0.3,
+   "t1": 1.05,
+   "parts": [
+    [
+     "Te digo algo:",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "C",
+   "t0": 1.38,
+   "t1": 3.3,
+   "parts": [
+    [
+     "si es",
+     0
+    ],
+    [
+     "embutido inmediato",
+     1
+    ]
+   ]
+  },
+  {
+   "take": "C",
+   "t0": 3.5,
+   "t1": 4.45,
+   "parts": [
+    [
+     "de",
+     0
+    ],
+    [
+     "De Stefano",
+     1
+    ]
+   ]
+  },
+  {
+   "take": "C",
+   "t0": 4.75,
+   "t1": 5.31,
+   "parts": [
+    [
+     "no hace falta.",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "A",
+   "t0": 11.28,
+   "t1": 12.38,
+   "parts": [
+    [
+     "Sacás el tubo de la caja",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "A",
+   "t0": 12.38,
+   "t1": 13.78,
+   "parts": [
+    [
+     "y va directo a la embutidora.",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "B",
+   "t0": 0.42,
+   "t1": 1.65,
+   "parts": [
+    [
+     "Sin spa previo.",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "B",
+   "t0": 2.16,
+   "t1": 3.3,
+   "parts": [
+    [
+     "¿La remojás igual?",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "B",
+   "t0": 3.56,
+   "t1": 4.34,
+   "parts": [
+    [
+     "Ok, ponele;",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "B",
+   "t0": 4.34,
+   "t1": 5.88,
+   "parts": [
+    [
+     "pero no es un baño de inmersión.",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "B",
+   "t0": 6.04,
+   "t1": 6.95,
+   "parts": [
+    [
+     "Agua tibia,",
+     1
+    ]
+   ]
+  },
+  {
+   "take": "B",
+   "t0": 6.95,
+   "t1": 7.85,
+   "parts": [
+    [
+     "la metés y la sacás.",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "B",
+   "t0": 8.16,
+   "t1": 9.5,
+   "parts": [
+    [
+     "Ese es el dato de la semana.",
+     0
+    ]
+   ]
+  },
+  {
+   "take": "B",
+   "t0": 14.16,
+   "t1": 14.86,
+   "parts": [
+    [
+     "De nada.",
+     0
+    ]
+   ]
+  }
+ ],
+ "gains": {
+  "C": -1.6
+ }
+}

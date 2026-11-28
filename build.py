@@ -345,10 +345,12 @@ def frame_bytes(state):
 
 # ---------- audio ----------
 tk_names = list(TAKES.keys())
+GAINS = cfg.get("gains", {})   # opcional: dB por toma, para emparejar el volumen de la voz entre tomas
 parts, labels = [], []
 for n, (tk, i0, i1) in enumerate(AUD):
     d = i1 - i0
-    parts.append(f"[{tk_names.index(tk)}:a]atrim={i0}:{i1},asetpts=PTS-STARTPTS,"
+    g = f"volume={float(GAINS[tk]):.2f}dB," if tk in GAINS else ""
+    parts.append(f"[{tk_names.index(tk)}:a]atrim={i0}:{i1},asetpts=PTS-STARTPTS,{g}"
                  f"afade=t=in:st=0:d=0.025,afade=t=out:st={d - 0.035:.3f}:d=0.035[s{n}]")
     labels.append(f"[s{n}]")
 voice_af = ";".join(parts) + ";" + "".join(labels) + \
@@ -380,6 +382,16 @@ inputs, fc, vlabels = [], [], []
 for tk in tk_names:
     inputs += ["-i", TAKES[tk]]
 look = f"fps={FPS},scale={W}:{H}:flags=lanczos,unsharp=5:5:0.35:5:5:0.0,setsar=1,format=yuv420p"
+look_nativo = f"fps={FPS},scale={W}:{H}:flags=lanczos,setsar=1,format=yuv420p"   # tomas ya en 1080: sin realce
+
+
+def ancho(path):
+    r = run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width",
+             "-of", "csv=p=0", path])
+    return int(r.stdout.strip().split("\n")[0])
+
+
+ANCHO = {k: ancho(p) for k, p in TAKES.items()}
 nin = len(tk_names)
 for n, (v, (a, b)) in enumerate(zip(VID, spans)):
     d = b - a
@@ -387,13 +399,26 @@ for n, (v, (a, b)) in enumerate(zip(VID, spans)):
         i0 = v["at"][1]
         # "zoom": acercamiento opcional de la toma (1.0 = sin cambio); "zoom_y": 0 arriba, 1 abajo
         z = float(v.get("zoom", 1.0))
+        fy = float(v.get("zoom_y", 0.3))
+        z0 = float(v.get("zoom_from", z))
+        ramp = float(v.get("zoom_ramp", 0.0))
         crop = ""
-        if z > 1.001:
-            fy = float(v.get("zoom_y", 0.3))
-            crop = f"crop=iw/{z:.4f}:ih/{z:.4f}:(iw-ow)/2:(ih-oh)*{fy:.3f},"
+        if abs(z - z0) > 0.001 and ramp > 0:
+            # zoom repentino: el tramo arranca en "zoom_from" y llega a "zoom" en "zoom_ramp" segundos
+            # (rápido al principio, frenando al final). Se agranda antes para que el recorte no pierda detalle.
+            nf = max(1, round(ramp * FPS))
+            zexp = f"if(lt(on,{nf}),{z0:.4f}+({z - z0:.4f})*(1-pow(1-(on+1)/{nf},2)),{z:.4f})"
+            realce = 0.2 if ANCHO[v["take"]] >= 1000 else 0.35
+            final = (f"fps={FPS},scale={2 * W}:{2 * H}:flags=lanczos,"
+                     f"zoompan=z='{zexp}':x='(iw-iw/zoom)/2':y='(ih-ih/zoom)*{fy:.3f}':d=1:s={W}x{H}:fps={FPS},"
+                     f"unsharp=5:5:{realce}:5:5:0.0,setsar=1,format=yuv420p")
+        else:
+            if z > 1.001:
+                crop = f"crop=iw/{z:.4f}:ih/{z:.4f}:(iw-ow)/2:(ih-oh)*{fy:.3f},"
+            final = look_nativo if ANCHO[v["take"]] >= 1000 and not crop else look
         # tpad: si el tramo pide más de lo que dura la toma, se sostiene el último cuadro (no salta a negro)
         fc.append(f"[{tk_names.index(v['take'])}:v]tpad=stop_mode=clone:stop_duration=1,"
-                  f"trim=start={i0:.3f}:end={i0 + d:.3f},setpts=PTS-STARTPTS,{crop}{look}[v{n}]")
+                  f"trim=start={i0:.3f}:end={i0 + d:.3f},setpts=PTS-STARTPTS,{crop}{final}[v{n}]")
     else:
         out = os.path.join(TMP, f"photo{n}.jpg")
         photo_canvas(R(v["photo"]), out)
